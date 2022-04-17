@@ -64,19 +64,34 @@ function solution2(participant, completion) {
 // console.log(solution2(["leo", "kiki", "eden"], ["eden", "kiki"]));
 
 function solution(participant, completion) {
-  var completers = new Map();
+  var Participants = new Map();
 
-  let num = 0;
   participant.map((name) => {
-    let num = 0;
-    completers.set(name, num++);
+    if (!Participants.get(name)) {
+      Participants.set(name, 1);
+    } else {
+      Participants.set(name, Participants.get(name) + 1);
+    }
+  });
+  console.log(Participants);
+
+  completion.map((name) => {
+    if (Participants.get(name)) {
+      Participants.set(name, Participants.get(name) - 1);
+    }
+  });
+  console.log(Participants);
+  participant.map((name) => {
+    if (Participants.get(name) >= 1) {
+      answer = name;
+      return answer;
+    }
   });
 
-  //   completion.map((name) => {
-  //     completers.set(name, ());
-  //   });
-
-  return completers;
+  return answer;
 }
 
 console.log(solution(["leo", "kiki", "eden"], ["eden", "kiki"]));
+console.log(
+  solution(["mislav", "stanko", "mislav", "ana"], ["stanko", "ana", "mislav"])
+);
